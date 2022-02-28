@@ -1,8 +1,8 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('karyawans', {
-      id: {
+    await queryInterface.createTable('karyawan', {
+      id_karyawan: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,

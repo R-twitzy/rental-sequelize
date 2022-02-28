@@ -10,7 +10,32 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // relasi sewa -> mobil
+      // key : id_mobil
+      // parent : mobil, child: sewa
+      // tipe: one to many
+      this.belongsTo(models.mobil, {
+        foreignKey: "id_mobil",
+        as: "mobil"
+      })
+
+      // relasi sewa -> karyawan
+      // key : id_karyawan
+      // parent : karyawan, child: sewa
+      // tipe: one to many
+      this.belongsTo(models.karyawan, {
+        foreignKey: "id_karyawan",
+        as: "karyawan"
+      })
+
+      // relasi sewa -> pelanggan
+      // key : id_pelanggan
+      // parent : pelanggan, child: sewa
+      // tipe: one to many
+      this.belongsTo(models.pelanggan, {
+        foreignKey: "id_pelanggan",
+        as: "pelanggan"
+      })
     }
   }
   sewa.init({

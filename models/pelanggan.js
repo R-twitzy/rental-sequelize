@@ -14,12 +14,18 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   pelanggan.init({
+    id_pelanggan:{
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     nama_pelanggan: DataTypes.STRING,
     alamat_pelanggan: DataTypes.STRING,
     kontak: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'pelanggan',
+    tableName: 'pelanggan'
   });
   return pelanggan;
 };
