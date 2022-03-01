@@ -3,10 +3,10 @@ const md5 = require("md5")
 let jwt = require(`jsonwebtoken`)
 
 // memanggil file model untuk karyawan
-let modelkaryawan = require("../models/index").karyawan
+let modelKaryawan = require("../models/index").karyawan
 
-exports.getDatakaryawan = (request, response) => {
-    modelkaryawan.findAll()
+exports.getDataKaryawan = (request, response) => {
+    modelKaryawan.findAll()
     .then(result => {
         return response.json({
             Count : result.length,
@@ -20,15 +20,17 @@ exports.getDatakaryawan = (request, response) => {
     })
 }
 
-exports.addDatakaryawan = (request, response) => {
+exports.addDataKaryawan = (request, response) => {
     // tampung data request
-    let newkaryawan = {
+    let newKaryawan = {
         nama_karyawan: request.body.nama_karyawan,
-        karyawanname: request.body.karyawanname,
+        alamat_karyawan: request.body.alamat_karyawan,
+        kontak: request.body.kontak,
+        username: request.body.username,
         password: md5(request.body.password),
     }
 
-    modelkaryawan.create(newkaryawan)
+    modelKaryawan.create(newKaryawan)
         .then(result => {
             return response.json({
                 message: `Data karyawan berhasil ditambahkan`
@@ -41,15 +43,17 @@ exports.addDatakaryawan = (request, response) => {
         })
     }
 
-exports.editDatakaryawan = (request, response) => {
+exports.editDataKaryawan = (request, response) => {
     let id = request.params.id_karyawan
-    let datakaryawan = {
+    let dataKaryawan = {
         nama_karyawan: request.body.nama_karyawan,
-        karyawanname: request.body.karyawanname,
+        alamat_karyawan: request.body.alamat_karyawan,
+        kontak: request.body.kontak,
+        username: request.body.username,
         password: md5(request.body.password),
     }
     
-    modelkaryawan.update(datakaryawan, {where: {id_karyawan: id}})
+    modelKaryawan.update(dataKaryawan, {where: {id_karyawan: id}})
         .then(result => {
             return response.json({
                 message: `Data karyawan berhasil diedit`
@@ -62,10 +66,10 @@ exports.editDatakaryawan = (request, response) => {
         })
     }
 
-exports.deleteDatakaryawan = (request, response) => {
+exports.deleteDataKaryawan = (request, response) => {
     let id = request.params.id_karyawan
 
-    modelkaryawan.destroy({where: {id_karyawan: id}})
+    modelKaryawan.destroy({where: {id_karyawan: id}})
         .then(result => {
             return response.json({
                 message: `Data karyawan berhasil dihapus`
@@ -80,12 +84,12 @@ exports.deleteDatakaryawan = (request, response) => {
 
 exports.authentication = async(request, response) => {
         let data = {
-            karyawanname: request.body.karyawanname,
+            username: request.body.username,
             password: md5(request.body.password)
         }
 
         // validasi (cek data di tabel karyawan)
-        let result = await modelkaryawan.findOne({where: data})
+        let result = await modelKaryawan.findOne({where: data})
 
         if (result) {
             // data ditemukan
@@ -105,7 +109,7 @@ exports.authentication = async(request, response) => {
             // data tidak ditemukan
             return response.json({
                 logged: false,
-                message: `invalid karyawanname or password`
+                message: `invalid username or password`
             })
         }
 }

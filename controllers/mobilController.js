@@ -1,11 +1,11 @@
 // memanggil file model untuk mobil
-let modelmobil = require("../models/index").mobil
+let modelMobil = require("../models/index").mobil
 
 let path = require("path")
 let fs = require("fs")
 
-exports.getDatamobil = (request, response) => {
-    modelmobil.findAll()
+exports.getDataMobil = (request, response) => {
+    modelMobil.findAll()
     .then(result => {
         return response.json(result)
     })
@@ -16,14 +16,14 @@ exports.getDatamobil = (request, response) => {
     })
 }
 
-exports.addDatamobil = (request, response) => {
+exports.addDataMobil = (request, response) => {
     if(!request.file){
         return response.json({
             messgae: `Tidak ada yg diupload`
         })
     }
     // tampung data request
-    let newmobil = {
+    let newMobil = {
         nomor_mobil: request.body.nomor_mobil,
         merk: request.body.merk,
         jenis: request.body.jenis,
@@ -33,7 +33,7 @@ exports.addDatamobil = (request, response) => {
         image: request.file.filename
     }
 
-    modelmobil.create(newmobil)
+    modelMobil.create(newMobil)
         .then(result => {
             return response.json({
                 message: `Data mobil berhasil ditambahkan`
@@ -46,9 +46,9 @@ exports.addDatamobil = (request, response) => {
         })
     }
 
-exports.editDatamobil = (request, response) => {
+exports.editDataMobil = (request, response) => {
     let id = request.params.id_mobil
-    let datamobil = {
+    let dataMobil = {
         nomor_mobil: request.body.nomor_mobil,
         merk: request.body.merk,
         jenis: request.body.jenis,
@@ -58,7 +58,7 @@ exports.editDatamobil = (request, response) => {
         image: request.file.filename
     }
     
-    modelmobil.update(datamobil, {where: {id_mobil: id}})
+    modelMobil.update(dataMobil, {where: {id_mobil: id}})
         .then(result => {
             return response.json({
                 message: `Data mobil berhasil diedit`
@@ -71,11 +71,11 @@ exports.editDatamobil = (request, response) => {
         })
     }
 
-exports.deleteDatamobil = async (request, response) => {
+exports.deleteDataMobil = async (request, response) => {
     let id = request.params.id_mobil
 
     // ambil dulu data filename yg akan dihapus
-    let mobil = await modelmobil.findOne({ where: {id_mobil: id}})
+    let mobil = await modelMobil.findOne({ where: {id_mobil: id}})
     
     if(mobil){
         let oldFileName = mobil.image
@@ -85,7 +85,7 @@ exports.deleteDatamobil = async (request, response) => {
         fs.unlink(location, error => console.log(error))
     }
 
-    modelmobil.destroy({where: {id_mobil: id}})
+    modelMobil.destroy({where: {id_mobil: id}})
         .then(result => {
             return response.json({
                 message: `Data mobil berhasil dihapus`
