@@ -9,7 +9,7 @@ let authorization = require("../middlewares/authorization")
 
 app.get("/", authorization.authorization, sewaController.getDataSewa)
 app.post("/", sewaController.addDataSewa)
-app.put("/:id_pelanggaran_siswa", sewaController.updateDataSewa)
-app.delete("/:id_pelanggaran_siswa", sewaController.deleteDataSewa)
+app.put("/:id_sewa", sewaController.editDataSewa)
+app.delete("/:id_sewa", sewaController.deleteDataSewa)
 
 module.exports = app

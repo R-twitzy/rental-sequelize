@@ -6,17 +6,19 @@ app.use(express.json())
 // call karyawanController
 let karyawanController = require("../controllers/karyawanController")
 
+let authorization = require("../middlewares/authorization")
+
 // endpoint get data karyawan
-app.get("/", karyawanController.getDataKaryawan)
+app.get("/", authorization.authorization,karyawanController.getDataKaryawan)
 
 // endpoint add data karyawan
-app.post("/", karyawanController.addDataKaryawan)
+app.post("/", authorization.authorization,karyawanController.addDataKaryawan)
 
 // endpoint edit karyawan
-app.put("/:id_karyawan", karyawanController.editDataKaryawan)
+app.put("/:id_karyawan", authorization.authorization,karyawanController.editDataKaryawan)
 
 // endpoint delete karyawan
-app.delete("/:id_karyawan", karyawanController.deleteDataKaryawan)
+app.delete("/:id_karyawan", authorization.authorization,karyawanController.deleteDataKaryawan)
 
 app.post("/auth", karyawanController.authentication)
 
