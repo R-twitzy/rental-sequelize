@@ -39,6 +39,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   sewa.init({
+    id_sewa:{
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     tgl_sewa: DataTypes.DATE,
     tgl_kembali: DataTypes.DATE,
     total_bayar: DataTypes.DOUBLE,
@@ -48,6 +53,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'sewa',
+    tableName: 'sewa'
   });
   return sewa;
 };
