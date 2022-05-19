@@ -2,6 +2,9 @@ const express = require(`express`)
 const app = express()
 const PORT = 8080
 const cors = require(`cors`)
+app.use(cors())
+
+app.use(express.static(__dirname))
 
 let routes = [
     { prefix: `/mobil`, route: require(`./routes/mobil`)},
