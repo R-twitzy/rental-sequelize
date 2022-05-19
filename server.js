@@ -1,6 +1,7 @@
 const express = require(`express`)
 const app = express()
 const PORT = 8080
+const cors = require(`cors`)
 
 let routes = [
     { prefix: `/mobil`, route: require(`./routes/mobil`)},
